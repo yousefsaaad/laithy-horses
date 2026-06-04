@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Hero from "@/components/Hero";
 import HorseCard from "@/components/HorseCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
 import { FaWhatsapp } from "react-icons/fa";
+
+import {
+  FaInstagram,
+  FaLocationDot,
+  FaPhone,
+} from "react-icons/fa6";
 
 const horses = [
   {
@@ -32,329 +39,540 @@ const horses = [
 ];
 
 export default function Home() {
+
   const [selectedHorse, setSelectedHorse] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
   const [userName, setUserName] = useState("");
   const [phone, setPhone] = useState("");
 
-  const isValid = userName.length > 2 && phone.length > 7;
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+
+  const [loading, setLoading] = useState(true);
+
+  const [mousePosition, setMousePosition] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const isValid =
+    userName.length > 2 &&
+    phone.length > 7 &&
+    selectedLocation &&
+    selectedDate &&
+    selectedTime;
+
+  /* LOADER */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  /* MOUSE GLOW */
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () =>
+      window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
-    <main className="relative min-h-screen text-white overflow-x-hidden">
+    <>
+      {/* LOADING SCREEN */}
+      {loading && (
+        <div className="fixed inset-0 bg-black z-[9999] flex items-center justify-center overflow-hidden">
 
-      {/* 🎬 BACKGROUND VIDEO */}
-      <div className="fixed inset-0 -z-10">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-        >
-          <source src="/bg-horse.mp4" type="video/mp4" />
-        </video>
+          <div className="absolute w-[500px] h-[500px] bg-green-500/20 blur-[180px] rounded-full animate-pulse" />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
-      </div>
+          <div className="text-center relative z-10">
 
-      {/* 🧭 NAVBAR */}
-      <Navbar />
+            <h1 className="text-6xl sm:text-8xl font-black tracking-widest animate-pulse">
+              LAITHY 🐎
+            </h1>
 
-      {/* CONTENT */}
-      <div className="relative z-10">
-
-        {/* 🐎 HERO */}
-        <Hero
-          title="Where Legends Ride 🐎"
-          subtitle="Luxury horseback experiences through Egypt’s most iconic landscapes."
-        />
-
-        {/* 📍 LOCATIONS */}
-        <section className="text-center mt-16 mb-14 px-6">
-
-          <p className="uppercase tracking-[6px] text-green-400 text-sm mb-3">
-            Explore Egypt
-          </p>
-
-          <h2 className="text-4xl sm:text-5xl font-bold mb-5 leading-tight">
-            Choose Your Riding Destination
-          </h2>
-
-          <p className="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
-            Discover breathtaking horseback experiences across Egypt’s most iconic landscapes.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-5">
-
-            {[
-              { name: "Pyramids of Giza", icon: "🏜️" },
-              { name: "Saqqara", icon: "🏺" },
-              { name: "Dahab", icon: "🌅" },
-            ].map((place) => (
-              <button
-                key={place.name}
-                onClick={() => setSelectedLocation(place.name)}
-                className={`group px-8 py-5 rounded-3xl border backdrop-blur-md transition-all duration-300 hover:scale-105 min-w-[220px] ${
-                  selectedLocation === place.name
-                    ? "bg-green-500 text-black border-green-400 shadow-2xl"
-                    : "bg-white/5 border-white/10 hover:border-green-400"
-                }`}
-              >
-
-                <div className="text-4xl mb-3">
-                  {place.icon}
-                </div>
-
-                <h3 className="text-xl font-semibold">
-                  {place.name}
-                </h3>
-
-                <p className="text-sm mt-2 opacity-70">
-                  Premium riding experience
-                </p>
-
-              </button>
-            ))}
+            <p className="text-gray-400 mt-6 tracking-[8px] uppercase text-sm">
+              Luxury Horse Riding
+            </p>
 
           </div>
 
-        </section>
+        </div>
+      )}
 
-        {/* 🐎 BOOKING SECTION */}
-        <section
-          id="booking"
-          className="text-center pt-10 px-6"
-        >
+      <main
+        id="home"
+        className="relative min-h-screen text-white overflow-x-hidden"
+      >
 
-          <p className="uppercase tracking-[6px] text-green-400 text-sm mb-3">
-            Booking
-          </p>
+        {/* MOUSE GLOW */}
+        <div
+          className="fixed w-[400px] h-[400px] rounded-full pointer-events-none z-0 blur-[120px] opacity-20 bg-green-400 transition duration-300"
+          style={{
+            left: mousePosition.x - 200,
+            top: mousePosition.y - 200,
+          }}
+        />
 
-          <h2 className="text-4xl sm:text-5xl font-bold mb-5">
-            Book Your Experience 🐎
-          </h2>
+        {/* BACKGROUND VIDEO */}
+        <div className="fixed inset-0 -z-10 overflow-hidden">
 
-          <p className="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
-            Choose your perfect horse and enjoy a premium riding experience across Egypt’s most iconic destinations.
-          </p>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover scale-110"
+          >
+            <source src="/bg-horse.mp4" type="video/mp4" />
+          </video>
 
-        </section>
+          {/* DARK OVERLAY */}
+          <div className="absolute inset-0 bg-black/65" />
 
-        {/* 🐎 HORSES */}
-        <section
-          id="horses"
-          className="p-6 sm:p-12 flex gap-8 justify-center flex-wrap"
-        >
+          {/* TOP GLOW */}
+          <div className="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-green-500/20 blur-[200px] rounded-full" />
 
-          {horses.map((horse) => (
-            <div
-              key={horse.name}
-              className="transform hover:scale-105 transition duration-300"
-              onClick={() => {
-                setSelectedHorse(horse.name);
-                setIsOpen(true);
-              }}
-            >
-              <HorseCard
-                name={horse.name}
-                price={horse.price}
-                image={horse.image}
-              />
+          {/* BOTTOM GLOW */}
+          <div className="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-emerald-500/20 blur-[180px] rounded-full" />
+
+        </div>
+
+        {/* NAVBAR */}
+        <Navbar />
+
+        {/* CONTENT */}
+        <div className="relative z-10">
+
+          {/* HERO */}
+          <Hero
+            title="Where Legends Ride 🐎"
+            subtitle="Luxury horseback experiences through Egypt’s most iconic landscapes."
+          />
+
+          {/* STATS */}
+          <section className="grid grid-cols-2 sm:grid-cols-4 gap-4 px-6 sm:px-12 mb-24">
+
+            {[
+              { number: "500+", label: "Happy Riders" },
+              { number: "4.9★", label: "Luxury Rating" },
+              { number: "24/7", label: "Premium Support" },
+              { number: "100%", label: "Luxury Experience" },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 text-center hover:scale-105 hover:border-green-400 transition duration-500"
+              >
+
+                <h3 className="text-3xl font-black text-green-400 mb-2">
+                  {item.number}
+                </h3>
+
+                <p className="text-gray-300 text-sm tracking-wide">
+                  {item.label}
+                </p>
+
+              </div>
+            ))}
+
+          </section>
+
+          {/* LOCATIONS */}
+          <section className="text-center mt-10 mb-24 px-6">
+
+            <p className="uppercase tracking-[8px] text-green-400 text-sm mb-3">
+              Explore Egypt
+            </p>
+
+            <h2 className="text-4xl sm:text-6xl font-black mb-5">
+              Choose Your Destination
+            </h2>
+
+            <p className="text-gray-400 max-w-2xl mx-auto mb-12 text-lg">
+              Ride across Egypt’s most breathtaking landscapes with elegance and adventure.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-6">
+
+              {[
+                {
+                  name: "Pyramids of Giza",
+                  icon: "🏜️",
+                },
+                {
+                  name: "Saqqara",
+                  icon: "🏺",
+                },
+                {
+                  name: "Dahab",
+                  icon: "🌅",
+                },
+              ].map((place) => (
+                <button
+                  key={place.name}
+                  onClick={() => setSelectedLocation(place.name)}
+                  className={`group w-full sm:w-auto sm:min-w-[260px] px-8 py-7 rounded-[32px] border backdrop-blur-xl transition-all duration-500 hover:scale-105 ${
+                    selectedLocation === place.name
+                      ? "bg-green-500 text-black border-green-400 shadow-[0_0_40px_rgba(34,197,94,0.5)]"
+                      : "bg-white/5 border-white/10 hover:border-green-400"
+                  }`}
+                >
+
+                  <div className="text-6xl mb-5 group-hover:scale-110 transition">
+                    {place.icon}
+                  </div>
+
+                  <h3 className="text-2xl font-bold">
+                    {place.name}
+                  </h3>
+
+                  <p className="text-sm mt-2 opacity-70">
+                    Premium Horseback Adventure
+                  </p>
+
+                </button>
+              ))}
+
             </div>
-          ))}
 
-        </section>
+          </section>
 
-        {/* 🐎 BOOKING MODAL */}
-        {isOpen && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 px-4">
+          {/* BOOKING */}
+          <section
+            id="booking"
+            className="text-center px-6 mb-14"
+          >
 
-            <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-[420px] animate-[fadeIn_0.3s_ease]">
+            <p className="uppercase tracking-[8px] text-green-400 text-sm mb-3">
+              Booking
+            </p>
 
-              <h2 className="text-2xl font-bold mb-4">
-                Booking Request 🐎
-              </h2>
+            <h2 className="text-4xl sm:text-6xl font-black mb-5">
+              Book Your Experience 🐎
+            </h2>
 
-              {/* INFO */}
-              <div className="mb-5 space-y-2 text-sm">
+            <p className="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
+              Choose your perfect horse and enjoy a cinematic luxury riding experience.
+            </p>
 
-                <div className="bg-zinc-800 p-3 rounded-xl">
-                  🐎 Horse: {selectedHorse}
+          </section>
+
+          {/* HORSES */}
+          <section
+            id="horses"
+            className="px-6 sm:px-12 pb-24 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8"
+          >
+
+            {horses.map((horse) => (
+              <div
+                key={horse.name}
+                onClick={() => {
+                  setSelectedHorse(horse.name);
+                  setIsOpen(true);
+                }}
+                className="group cursor-pointer relative overflow-hidden rounded-[32px] hover:-translate-y-3 transition duration-500"
+              >
+
+                {/* CARD */}
+                <div className="relative overflow-hidden rounded-[32px]">
+
+                  <div className="group-hover:scale-110 transition duration-700">
+
+                    <HorseCard
+                      name={horse.name}
+                      price={horse.price}
+                      image={horse.image}
+                    />
+
+                  </div>
+
+                  {/* OVERLAY */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent opacity-90" />
+
+                  {/* BORDER GLOW */}
+                  <div className="absolute inset-0 rounded-[32px] border border-transparent group-hover:border-green-400 transition duration-500" />
+
                 </div>
 
-                <div className="bg-zinc-800 p-3 rounded-xl">
-                  📍 Location: {selectedLocation || "Not selected"}
+              </div>
+            ))}
+
+          </section>
+
+          {/* WHY US */}
+          <section className="px-6 sm:px-12 pb-24">
+
+            <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[40px] p-8 sm:p-16">
+
+              <div className="text-center mb-14">
+
+                <p className="uppercase tracking-[8px] text-green-400 text-sm mb-3">
+                  Why Us
+                </p>
+
+                <h2 className="text-4xl sm:text-6xl font-black">
+                  The Ultimate Riding Experience
+                </h2>
+
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                {[
+                  {
+                    icon: "🐎",
+                    title: "Luxury Horses",
+                    desc: "Professionally trained horses for elite riding adventures.",
+                  },
+                  {
+                    icon: "🌅",
+                    title: "Iconic Destinations",
+                    desc: "Experience Egypt’s most breathtaking landscapes.",
+                  },
+                  {
+                    icon: "⭐",
+                    title: "Premium Service",
+                    desc: "Luxury hospitality with unforgettable experiences.",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.title}
+                    className="bg-black/20 rounded-[32px] p-8 text-center hover:scale-105 hover:bg-black/30 transition duration-500"
+                  >
+
+                    <div className="text-7xl mb-6">
+                      {item.icon}
+                    </div>
+
+                    <h3 className="text-2xl font-bold mb-4">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-gray-400 leading-relaxed">
+                      {item.desc}
+                    </p>
+
+                  </div>
+                ))}
+
+              </div>
+
+            </div>
+
+          </section>
+
+          {/* BOOKING MODAL */}
+          {isOpen && (
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 px-4">
+
+              <div className="bg-zinc-900/95 border border-zinc-700 p-5 sm:p-8 rounded-[32px] w-full max-w-[430px] animate-[fadeIn_0.3s_ease] shadow-[0_0_60px_rgba(0,0,0,0.6)]">
+
+                <h2 className="text-2xl font-black mb-5">
+                  Booking Request 🐎
+                </h2>
+
+                {/* INFO */}
+                <div className="space-y-3 mb-5">
+
+                  <div className="bg-zinc-800 p-3 rounded-xl text-sm">
+                    🐎 Horse: {selectedHorse}
+                  </div>
+
+                  <div className="bg-zinc-800 p-3 rounded-xl text-sm">
+                    📍 Location: {selectedLocation || "Not selected"}
+                  </div>
+
+                </div>
+
+                {/* INPUTS */}
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
+                />
+
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
+                />
+
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  className="w-full p-3 rounded-xl bg-zinc-800 mb-3"
+                />
+
+                <input
+                  type="time"
+                  value={selectedTime}
+                  onChange={(e) => setSelectedTime(e.target.value)}
+                  className="w-full p-3 rounded-xl bg-zinc-800 mb-5"
+                />
+
+                {/* SEND */}
+                <button
+                  disabled={!isValid}
+                  onClick={() => {
+
+                    const message =
+                      `🐎 Booking Request%0A%0A` +
+                      `Horse: ${selectedHorse}%0A` +
+                      `Location: ${selectedLocation}%0A` +
+                      `Date: ${selectedDate}%0A` +
+                      `Time: ${selectedTime}%0A` +
+                      `Name: ${userName}%0A` +
+                      `Phone: ${phone}`;
+
+                    window.open(
+                      `https://wa.me/201147120315?text=${message}`,
+                      "_blank"
+                    );
+                  }}
+                  className={`w-full py-3 rounded-full font-bold transition duration-300 ${
+                    isValid
+                      ? "bg-green-500 hover:bg-green-400 hover:scale-105"
+                      : "bg-gray-600 cursor-not-allowed"
+                  }`}
+                >
+                  Confirm Booking
+                </button>
+
+                {/* CLOSE */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-full mt-3 py-3 rounded-full bg-white text-black hover:scale-105 transition"
+                >
+                  Close
+                </button>
+
+              </div>
+
+            </div>
+          )}
+
+          {/* CONTACT */}
+          <section
+            id="contact"
+            className="px-6 sm:px-12 pb-24"
+          >
+
+            <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[40px] p-8 sm:p-16 text-center">
+
+              <p className="uppercase tracking-[8px] text-green-400 text-sm mb-3">
+                Contact
+              </p>
+
+              <h2 className="text-4xl sm:text-6xl font-black mb-5">
+                Let’s Ride Together 🐎
+              </h2>
+
+              <p className="text-gray-400 max-w-2xl mx-auto mb-12 text-lg">
+                Reach out anytime and let’s create unforgettable memories together.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                {/* WHATSAPP */}
+                <a
+                  href="https://wa.me/201147120315"
+                  target="_blank"
+                  className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500"
+                >
+
+                  <FaPhone
+                    size={34}
+                    className="mx-auto mb-4 text-green-400"
+                  />
+
+                  <h3 className="text-2xl font-bold mb-2">
+                    WhatsApp
+                  </h3>
+
+                  <p className="text-gray-400">
+                    +20 11 47120315
+                  </p>
+
+                </a>
+
+                {/* INSTAGRAM */}
+                <a
+                  href="https://instagram.com/yousefsaaad_"
+                  target="_blank"
+                  className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500"
+                >
+
+                  <FaInstagram
+                    size={34}
+                    className="mx-auto mb-4 text-pink-400"
+                  />
+
+                  <h3 className="text-2xl font-bold mb-2">
+                    Instagram
+                  </h3>
+
+                  <p className="text-gray-400">
+                    @yousefsaaad_
+                  </p>
+
+                </a>
+
+                {/* LOCATION */}
+                <div className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500">
+
+                  <FaLocationDot
+                    size={34}
+                    className="mx-auto mb-4 text-yellow-400"
+                  />
+
+                  <h3 className="text-2xl font-bold mb-2">
+                    Location
+                  </h3>
+
+                  <p className="text-gray-400">
+                    Egypt 🇪🇬
+                  </p>
+
                 </div>
 
               </div>
 
-              {/* NAME */}
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
-              />
-
-              {/* PHONE */}
-              <input
-                type="text"
-                placeholder="Phone Number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full p-3 rounded-xl bg-zinc-800 mb-4 outline-none focus:ring-2 focus:ring-green-500"
-              />
-
-              {/* DATE */}
-              <label className="block mb-2 text-sm text-gray-400">
-                Select Date 📅
-              </label>
-
-              <input
-                type="date"
-                className="w-full p-3 rounded-xl bg-zinc-800 mb-4"
-              />
-
-              {/* TIME */}
-              <label className="block mb-2 text-sm text-gray-400">
-                Select Time ⏰
-              </label>
-
-              <input
-                type="time"
-                className="w-full p-3 rounded-xl bg-zinc-800 mb-6"
-              />
-
-              {/* SEND */}
-              <button
-                disabled={!isValid}
-                onClick={() => {
-                  const message =
-                    `🐎 Booking Request%0A%0A` +
-                    `Horse: ${selectedHorse}%0A` +
-                    `Location: ${selectedLocation}%0A` +
-                    `Name: ${userName}%0A` +
-                    `Phone: ${phone}`;
-
-                  window.open(
-                    `https://wa.me/201147120315?text=${message}`,
-                    "_blank"
-                  );
-                }}
-                className={`w-full py-3 rounded-full font-semibold transition duration-300 ${
-                  isValid
-                    ? "bg-green-500 hover:scale-105 hover:bg-green-400"
-                    : "bg-gray-600 cursor-not-allowed"
-                }`}
-              >
-                Send Booking
-              </button>
-
-              {/* CLOSE */}
-              <button
-                onClick={() => setIsOpen(false)}
-                className="w-full mt-3 py-3 rounded-full bg-white text-black hover:scale-105 transition"
-              >
-                Close
-              </button>
-
             </div>
 
-          </div>
-        )}
+          </section>
 
-        {/* 📞 CONTACT */}
-        <section
-          id="contact"
-          className="text-center py-20 px-6"
-        >
+          {/* FLOATING WHATSAPP */}
+          <a
+            href="https://wa.me/201147120315"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-5 right-5 bg-green-500 p-4 rounded-full shadow-[0_0_30px_rgba(34,197,94,0.6)] z-50 hover:scale-110 transition duration-300"
+          >
+            <FaWhatsapp size={28} />
+          </a>
 
-          <p className="uppercase tracking-[6px] text-green-400 text-sm mb-3">
-            Contact Us
-          </p>
+          {/* FOOTER */}
+          <Footer />
 
-          <h2 className="text-4xl sm:text-5xl font-bold mb-5">
-            Let’s Plan Your Next Adventure 🐎
-          </h2>
+        </div>
 
-          <p className="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
-            Ready to experience Egypt on horseback? Reach out anytime and we’ll help you book the perfect ride.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-6">
-
-            {/* WHATSAPP */}
-            <a
-              href="https://wa.me/201147120315"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white/5 border border-white/10 backdrop-blur-md px-8 py-6 rounded-3xl hover:scale-105 transition duration-300 min-w-[260px]"
-            >
-              <div className="text-4xl mb-3">📱</div>
-
-              <h3 className="text-2xl font-semibold mb-2">
-                WhatsApp
-              </h3>
-
-              <p className="text-gray-400">
-                +20 11 47120315
-              </p>
-            </a>
-
-            {/* INSTAGRAM */}
-            <a
-              href="https://instagram.com/yousefsaaad_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white/5 border border-white/10 backdrop-blur-md px-8 py-6 rounded-3xl hover:scale-105 transition duration-300 min-w-[260px]"
-            >
-              <div className="text-4xl mb-3">📸</div>
-
-              <h3 className="text-2xl font-semibold mb-2">
-                Instagram
-              </h3>
-
-              <p className="text-gray-400">
-                @yousefsaaad_
-              </p>
-            </a>
-
-            {/* EMAIL */}
-            <a
-              href="mailto:joooy1199@gmail.com"
-              className="bg-white/5 border border-white/10 backdrop-blur-md px-8 py-6 rounded-3xl hover:scale-105 transition duration-300 min-w-[260px]"
-            >
-              <div className="text-4xl mb-3">✉️</div>
-
-              <h3 className="text-2xl font-semibold mb-2">
-                Email
-              </h3>
-
-              <p className="text-gray-400 break-all">
-                joooy1199@gmail.com
-              </p>
-            </a>
-
-          </div>
-
-        </section>
-
-        {/* 💬 WHATSAPP FLOAT */}
-        <a
-          href="https://wa.me/201147120315"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-lg z-50 hover:scale-110 transition duration-300"
-        >
-          <FaWhatsapp size={28} />
-        </a>
-
-        {/* FOOTER */}
-        <Footer />
-
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

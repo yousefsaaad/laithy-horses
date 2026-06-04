@@ -7,7 +7,7 @@ export default function Navbar() {
     };
   
     return (
-      <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-10 py-6 bg-black/30 backdrop-blur-md text-white">
+      <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-10 py-3 bg-black/30 backdrop-blur-md text-white">
   
         {/* LOGO */}
         <h1
