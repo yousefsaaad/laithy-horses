@@ -1,6 +1,6 @@
 export default function Navbar() {
     return (
-      <nav className="flex items-center justify-between px-10 py-6 bg-black text-white">
+      <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-10 py-6 bg-black/30 backdrop-blur-md text-white">
   
         <h1 className="text-3xl font-bold">
           Laithy 🐎
