@@ -22,7 +22,7 @@ import {
             <div className="text-center md:text-left">
   
               <h2 className="text-3xl sm:text-4xl font-black mb-3">
-                Laithy 🐎
+              Ravano 🐎
               </h2>
   
               <p className="text-gray-400 max-w-md leading-relaxed">
@@ -61,7 +61,7 @@ import {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
   
             <p>
-              © 2026 Laithy. All rights reserved.
+              © 2026 Ravano. All rights reserved.
             </p>
   
             <p className="flex items-center gap-2">

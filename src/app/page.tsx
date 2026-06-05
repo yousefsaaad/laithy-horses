@@ -101,7 +101,7 @@ export default function Home() {
           <div className="text-center relative z-10">
 
             <h1 className="text-6xl sm:text-8xl font-black tracking-widest animate-pulse">
-              LAITHY 🐎
+            Ravano 🐎
             </h1>
 
             <p className="text-gray-400 mt-6 tracking-[8px] uppercase text-sm">

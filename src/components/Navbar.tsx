@@ -19,7 +19,7 @@ export default function Navbar() {
           onClick={() => scrollToSection("home")}
           className="text-xl sm:text-3xl font-black cursor-pointer whitespace-nowrap hover:scale-105 transition"
         >
-          Laithy 🐎
+          Ravano 🐎
         </h1>
 
         {/* LINKS */}
