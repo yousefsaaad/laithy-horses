@@ -6,8 +6,10 @@ import { supabase } from "@/lib/supabase";
 type Booking = {
   id: number;
   name: string;
+  email: string;
   phone: string;
   horse: string;
+  location: string;
   date: string;
   time: string;
 };
@@ -117,7 +119,7 @@ export default function AdminPage() {
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
 
               {/* INFO */}
-              <div className="space-y-3">
+              <div className="space-y-4">
 
                 <h2 className="text-2xl sm:text-3xl font-black text-green-400">
                   {booking.name}
@@ -126,11 +128,19 @@ export default function AdminPage() {
                 <div className="flex flex-wrap gap-3 text-sm sm:text-base">
 
                   <div className="bg-black/30 border border-white/10 px-4 py-2 rounded-full">
+                    📧 {booking.email}
+                  </div>
+
+                  <div className="bg-black/30 border border-white/10 px-4 py-2 rounded-full">
                     📞 {booking.phone}
                   </div>
 
                   <div className="bg-black/30 border border-white/10 px-4 py-2 rounded-full">
                     🐎 {booking.horse}
+                  </div>
+
+                  <div className="bg-black/30 border border-white/10 px-4 py-2 rounded-full">
+                    📍 {booking.location}
                   </div>
 
                   <div className="bg-black/30 border border-white/10 px-4 py-2 rounded-full">

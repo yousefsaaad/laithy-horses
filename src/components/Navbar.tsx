@@ -40,7 +40,7 @@ export default function Navbar() {
           </button>
 
           <button
-            onClick={() => scrollToSection("booking")}
+            onClick={() => scrollToSection("locations")}
             className="hover:text-white transition px-2 sm:px-0"
           >
             Booking

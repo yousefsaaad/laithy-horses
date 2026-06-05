@@ -45,6 +45,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
   const [selectedDate, setSelectedDate] = useState("");
@@ -59,6 +60,7 @@ export default function Home() {
 
   const isValid =
     userName.length > 2 &&
+    email.includes("@") &&
     phone.length > 7 &&
     selectedLocation &&
     selectedDate &&
@@ -138,13 +140,10 @@ export default function Home() {
             <source src="/bg-horse.mp4" type="video/mp4" />
           </video>
 
-          {/* DARK OVERLAY */}
           <div className="absolute inset-0 bg-black/65" />
 
-          {/* TOP GLOW */}
           <div className="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-green-500/20 blur-[200px] rounded-full" />
 
-          {/* BOTTOM GLOW */}
           <div className="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-emerald-500/20 blur-[180px] rounded-full" />
 
         </div>
@@ -189,7 +188,10 @@ export default function Home() {
           </section>
 
           {/* LOCATIONS */}
-          <section className="text-center mt-10 mb-24 px-6">
+          <section
+            id="locations"
+            className="text-center mt-10 mb-24 px-6"
+          >
 
             <p className="uppercase tracking-[8px] text-green-400 text-sm mb-3">
               Explore Egypt
@@ -248,26 +250,6 @@ export default function Home() {
 
           </section>
 
-          {/* BOOKING */}
-          <section
-            id="booking"
-            className="text-center px-6 mb-14"
-          >
-
-            <p className="uppercase tracking-[8px] text-green-400 text-sm mb-3">
-              Booking
-            </p>
-
-            <h2 className="text-4xl sm:text-6xl font-black mb-5">
-              Book Your Experience 🐎
-            </h2>
-
-            <p className="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
-              Choose your perfect horse and enjoy a cinematic luxury riding experience.
-            </p>
-
-          </section>
-
           {/* HORSES */}
           <section
             id="horses"
@@ -284,7 +266,6 @@ export default function Home() {
                 className="group cursor-pointer relative overflow-hidden rounded-[32px] hover:-translate-y-3 transition duration-500"
               >
 
-                {/* CARD */}
                 <div className="relative overflow-hidden rounded-[32px]">
 
                   <div className="group-hover:scale-110 transition duration-700">
@@ -297,10 +278,8 @@ export default function Home() {
 
                   </div>
 
-                  {/* OVERLAY */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent opacity-90" />
 
-                  {/* BORDER GLOW */}
                   <div className="absolute inset-0 rounded-[32px] border border-transparent group-hover:border-green-400 transition duration-500" />
 
                 </div>
@@ -310,85 +289,22 @@ export default function Home() {
 
           </section>
 
-          {/* WHY US */}
-          <section className="px-6 sm:px-12 pb-24">
-
-            <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[40px] p-8 sm:p-16">
-
-              <div className="text-center mb-14">
-
-                <p className="uppercase tracking-[8px] text-green-400 text-sm mb-3">
-                  Why Us
-                </p>
-
-                <h2 className="text-4xl sm:text-6xl font-black">
-                  The Ultimate Riding Experience
-                </h2>
-
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                {[
-                  {
-                    icon: "🐎",
-                    title: "Luxury Horses",
-                    desc: "Professionally trained horses for elite riding adventures.",
-                  },
-                  {
-                    icon: "🌅",
-                    title: "Iconic Destinations",
-                    desc: "Experience Egypt’s most breathtaking landscapes.",
-                  },
-                  {
-                    icon: "⭐",
-                    title: "Premium Service",
-                    desc: "Luxury hospitality with unforgettable experiences.",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="bg-black/20 rounded-[32px] p-8 text-center hover:scale-105 hover:bg-black/30 transition duration-500"
-                  >
-
-                    <div className="text-7xl mb-6">
-                      {item.icon}
-                    </div>
-
-                    <h3 className="text-2xl font-bold mb-4">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-gray-400 leading-relaxed">
-                      {item.desc}
-                    </p>
-
-                  </div>
-                ))}
-
-              </div>
-
-            </div>
-
-          </section>
-
           {/* BOOKING MODAL */}
           {isOpen && (
             <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 px-4">
 
-              <div className="bg-zinc-900/95 border border-zinc-700 p-5 sm:p-8 rounded-[32px] w-full max-w-[430px] animate-[fadeIn_0.3s_ease] shadow-[0_0_60px_rgba(0,0,0,0.6)]">
+              <div className="bg-zinc-900/95 border border-zinc-700 p-5 sm:p-8 rounded-[32px] w-full max-w-[430px] shadow-[0_0_60px_rgba(0,0,0,0.6)]">
 
                 <h2 className="text-2xl font-black mb-5">
                   Booking Request 🐎
                 </h2>
 
-                {/* INFO */}
                 <div className="space-y-3 mb-5">
 
                   <div className="bg-zinc-800 p-3 rounded-xl text-sm">
                     🐎 Horse: {selectedHorse}
                   </div>
-                  
+
                   <div className="bg-zinc-800 p-3 rounded-xl text-sm">
                     📍 Location: {selectedLocation}
                   </div>
@@ -401,6 +317,15 @@ export default function Home() {
                   placeholder="Your Name"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
+                  className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
+                />
+
+                {/* EMAIL */}
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
                 />
 
@@ -441,6 +366,7 @@ export default function Home() {
                         .insert([
                           {
                             name: userName,
+                            email: email,
                             phone: phone,
                             horse: selectedHorse,
                             location: selectedLocation,
@@ -464,6 +390,7 @@ export default function Home() {
                         `Date: ${selectedDate}%0A` +
                         `Time: ${selectedTime}%0A` +
                         `Name: ${userName}%0A` +
+                        `Email: ${email}%0A` +
                         `Phone: ${phone}`;
 
                       window.open(
@@ -501,6 +428,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* CONTACT */}
           <section
             id="contact"
             className="px-6 sm:px-12 pb-24"
@@ -515,76 +443,6 @@ export default function Home() {
               <h2 className="text-4xl sm:text-6xl font-black mb-5">
                 Let’s Ride Together 🐎
               </h2>
-
-              <p className="text-gray-400 max-w-2xl mx-auto mb-12 text-lg">
-                Reach out anytime and let’s create unforgettable memories together.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                {/* WHATSAPP */}
-                <a
-                  href="https://wa.me/201147120315"
-                  target="_blank"
-                  className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500"
-                >
-
-                  <FaPhone
-                    size={34}
-                    className="mx-auto mb-4 text-green-400"
-                  />
-
-                  <h3 className="text-2xl font-bold mb-2">
-                    WhatsApp
-                  </h3>
-
-                  <p className="text-gray-400">
-                    +20 11 47120315
-                  </p>
-
-                </a>
-
-                {/* INSTAGRAM */}
-                <a
-                  href="https://instagram.com/yousefsaaad_"
-                  target="_blank"
-                  className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500"
-                >
-
-                  <FaInstagram
-                    size={34}
-                    className="mx-auto mb-4 text-pink-400"
-                  />
-
-                  <h3 className="text-2xl font-bold mb-2">
-                    Instagram
-                  </h3>
-
-                  <p className="text-gray-400">
-                    @yousefsaaad_
-                  </p>
-
-                </a>
-
-                {/* LOCATION */}
-                <div className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500">
-
-                  <FaLocationDot
-                    size={34}
-                    className="mx-auto mb-4 text-yellow-400"
-                  />
-
-                  <h3 className="text-2xl font-bold mb-2">
-                    Location
-                  </h3>
-
-                  <p className="text-gray-400">
-                    Egypt 🇪🇬
-                  </p>
-
-                </div>
-
-              </div>
 
             </div>
 
