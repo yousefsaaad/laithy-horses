@@ -37,12 +37,12 @@ export default function Hero({ title, subtitle }: HeroProps) {
           <button
             onClick={() => {
               document
-                .getElementById("horses")
-                ?.scrollIntoView({ behavior: "smooth" });
+                  .getElementById("locations")
+                  ?.scrollIntoView({ behavior: "smooth" });
             }}
             className="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-full font-semibold text-base sm:text-lg hover:scale-105 hover:bg-green-400 transition duration-300 shadow-2xl"
           >
-            Reserve Your Experience
+            Choose Your Location First 📍
           </button>
 
           {/* SECOND BUTTON */}
