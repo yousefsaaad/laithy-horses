@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import { supabase } from "@/lib/supabase";
 import Hero from "@/components/Hero";
 import HorseCard from "@/components/HorseCard";
 import Navbar from "@/components/Navbar";
@@ -388,14 +388,14 @@ export default function Home() {
                   <div className="bg-zinc-800 p-3 rounded-xl text-sm">
                     🐎 Horse: {selectedHorse}
                   </div>
-
+                  
                   <div className="bg-zinc-800 p-3 rounded-xl text-sm">
-                    📍 Location: {selectedLocation || "Not selected"}
+                    📍 Location: {selectedLocation}
                   </div>
 
                 </div>
 
-                {/* INPUTS */}
+                {/* NAME */}
                 <input
                   type="text"
                   placeholder="Your Name"
@@ -404,6 +404,7 @@ export default function Home() {
                   className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
                 />
 
+                {/* PHONE */}
                 <input
                   type="text"
                   placeholder="Phone Number"
@@ -412,6 +413,7 @@ export default function Home() {
                   className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
                 />
 
+                {/* DATE */}
                 <input
                   type="date"
                   value={selectedDate}
@@ -419,6 +421,7 @@ export default function Home() {
                   className="w-full p-3 rounded-xl bg-zinc-800 mb-3"
                 />
 
+                {/* TIME */}
                 <input
                   type="time"
                   value={selectedTime}
@@ -429,21 +432,52 @@ export default function Home() {
                 {/* SEND */}
                 <button
                   disabled={!isValid}
-                  onClick={() => {
+                  onClick={async () => {
 
-                    const message =
-                      `🐎 Booking Request%0A%0A` +
-                      `Horse: ${selectedHorse}%0A` +
-                      `Location: ${selectedLocation}%0A` +
-                      `Date: ${selectedDate}%0A` +
-                      `Time: ${selectedTime}%0A` +
-                      `Name: ${userName}%0A` +
-                      `Phone: ${phone}`;
+                    try {
 
-                    window.open(
-                      `https://wa.me/201147120315?text=${message}`,
-                      "_blank"
-                    );
+                      const { error } = await supabase
+                        .from("bookings")
+                        .insert([
+                          {
+                            name: userName,
+                            phone: phone,
+                            horse: selectedHorse,
+                            location: selectedLocation,
+                            date: selectedDate,
+                            time: selectedTime,
+                          },
+                        ]);
+
+                      if (error) {
+                        console.error(error);
+                        alert(`Booking failed ❌: ${error.message}`);
+                        return;
+                      }
+
+                      alert("Booking confirmed 🐎🔥");
+
+                      const message =
+                        `🐎 Booking Request%0A%0A` +
+                        `Horse: ${selectedHorse}%0A` +
+                        `Location: ${selectedLocation}%0A` +
+                        `Date: ${selectedDate}%0A` +
+                        `Time: ${selectedTime}%0A` +
+                        `Name: ${userName}%0A` +
+                        `Phone: ${phone}`;
+
+                      window.open(
+                        `https://wa.me/201147120315?text=${message}`,
+                        "_blank"
+                      );
+
+                      setIsOpen(false);
+
+                    } catch (err) {
+                      console.error(err);
+                      alert("Something went wrong ❌");
+                    }
+
                   }}
                   className={`w-full py-3 rounded-full font-bold transition duration-300 ${
                     isValid
@@ -467,7 +501,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* CONTACT */}
           <section
             id="contact"
             className="px-6 sm:px-12 pb-24"
