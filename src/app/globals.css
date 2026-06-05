@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -12,31 +12,123 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* DARK MODE */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #050505;
+    --foreground: #ffffff;
   }
 }
 
+/* SMOOTH SCROLL */
 html {
   scroll-behavior: smooth;
 }
 
+/* BODY */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
+/* SELECTION */
+::selection {
+  background: #22c55e;
+  color: black;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4ade80;
+}
+
+/* POPUP */
 @keyframes popup {
   from {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.85);
   }
 
   to {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* FADE IN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* FLOAT */
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* GLOW */
+@keyframes glow {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+/* MOBILE FIXES */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* INPUT FIX */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* REMOVE BLUE TAP */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
