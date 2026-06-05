@@ -101,7 +101,7 @@ export default function Home() {
           <div className="text-center relative z-10">
 
             <h1 className="text-6xl sm:text-8xl font-black tracking-widest animate-pulse">
-            Ravano 🐎
+              Ravano 🐎
             </h1>
 
             <p className="text-gray-400 mt-6 tracking-[8px] uppercase text-sm">
@@ -120,7 +120,7 @@ export default function Home() {
 
         {/* MOUSE GLOW */}
         <div
-          className="fixed w-[400px] h-[400px] rounded-full pointer-events-none z-0 blur-[120px] opacity-20 bg-green-400 transition duration-300"
+          className="fixed w-[400px] h-[400px] rounded-full pointer-events-none z-0 blur-[120px] opacity-20 bg-green-400 transition duration-300 hidden md:block"
           style={{
             left: mousePosition.x - 200,
             top: mousePosition.y - 200,
@@ -135,15 +135,19 @@ export default function Home() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover scale-110"
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover"
           >
             <source src="/bg-horse.mp4" type="video/mp4" />
           </video>
 
-          <div className="absolute inset-0 bg-black/65" />
+          {/* OVERLAY */}
+          <div className="absolute inset-0 bg-black/70" />
 
+          {/* TOP GLOW */}
           <div className="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-green-500/20 blur-[200px] rounded-full" />
 
+          {/* BOTTOM GLOW */}
           <div className="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-emerald-500/20 blur-[180px] rounded-full" />
 
         </div>
@@ -260,8 +264,20 @@ export default function Home() {
               <div
                 key={horse.name}
                 onClick={() => {
+
+                  if (!selectedLocation) {
+                    alert("Please select a location first 📍");
+                    document
+                      .getElementById("locations")
+                      ?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    return;
+                  }
+
                   setSelectedHorse(horse.name);
                   setIsOpen(true);
+
                 }}
                 className="group cursor-pointer relative overflow-hidden rounded-[32px] hover:-translate-y-3 transition duration-500"
               >
@@ -299,6 +315,7 @@ export default function Home() {
                   Booking Request 🐎
                 </h2>
 
+                {/* INFO */}
                 <div className="space-y-3 mb-5">
 
                   <div className="bg-zinc-800 p-3 rounded-xl text-sm">
@@ -398,6 +415,12 @@ export default function Home() {
                         "_blank"
                       );
 
+                      setUserName("");
+                      setEmail("");
+                      setPhone("");
+                      setSelectedDate("");
+                      setSelectedTime("");
+
                       setIsOpen(false);
 
                     } catch (err) {
@@ -443,6 +466,76 @@ export default function Home() {
               <h2 className="text-4xl sm:text-6xl font-black mb-5">
                 Let’s Ride Together 🐎
               </h2>
+
+              <p className="text-gray-400 max-w-2xl mx-auto mb-12 text-lg">
+                Reach out anytime and let’s create unforgettable memories together.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                {/* WHATSAPP */}
+                <a
+                  href="https://wa.me/201147120315"
+                  target="_blank"
+                  className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500"
+                >
+
+                  <FaPhone
+                    size={34}
+                    className="mx-auto mb-4 text-green-400"
+                  />
+
+                  <h3 className="text-2xl font-bold mb-2">
+                    WhatsApp
+                  </h3>
+
+                  <p className="text-gray-400">
+                    +20 11 47120315
+                  </p>
+
+                </a>
+
+                {/* INSTAGRAM */}
+                <a
+                  href="https://instagram.com/yousefsaaad_"
+                  target="_blank"
+                  className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500"
+                >
+
+                  <FaInstagram
+                    size={34}
+                    className="mx-auto mb-4 text-pink-400"
+                  />
+
+                  <h3 className="text-2xl font-bold mb-2">
+                    Instagram
+                  </h3>
+
+                  <p className="text-gray-400">
+                    @yousefsaaad_
+                  </p>
+
+                </a>
+
+                {/* LOCATION */}
+                <div className="bg-black/20 rounded-[32px] p-8 hover:scale-105 transition duration-500">
+
+                  <FaLocationDot
+                    size={34}
+                    className="mx-auto mb-4 text-yellow-400"
+                  />
+
+                  <h3 className="text-2xl font-bold mb-2">
+                    Location
+                  </h3>
+
+                  <p className="text-gray-400">
+                    Egypt 🇪🇬
+                  </p>
+
+                </div>
+
+              </div>
 
             </div>
 
