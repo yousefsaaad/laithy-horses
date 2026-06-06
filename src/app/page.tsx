@@ -241,9 +241,22 @@ export default function Home() {
 
           {/* BOOKING MODAL */}
           {isOpen && (
-            <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 px-4">
-              <div className="bg-zinc-900/95 border border-zinc-700 p-6 sm:p-8 rounded-[32px] w-full max-w-[400px] shadow-[0_0_60px_rgba(0,0,0,0.6)] box-border">
-
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 px-3 py-6"><div
+  className="
+    bg-zinc-900/95
+    border
+    border-zinc-700
+    p-5
+    sm:p-8
+    rounded-[32px]
+    w-full
+    max-w-[400px]
+    shadow-[0_0_60px_rgba(0,0,0,0.6)]
+    box-border
+    max-h-[90vh]
+    overflow-y-auto
+  "
+>
                 <h2 className="text-2xl font-black mb-5 text-white">
                   Booking Request 🐎
                 </h2>
