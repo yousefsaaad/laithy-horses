@@ -131,7 +131,7 @@ select {
 input[type="date"],
 input[type="time"] {
   color-scheme: dark;
-  color: white;
+
 }
 
 /* SHOW TEXT */

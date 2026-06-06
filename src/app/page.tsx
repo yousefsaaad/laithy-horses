@@ -288,31 +288,47 @@ export default function Home() {
                     className="w-full h-[52px] px-4 rounded-xl bg-zinc-800 text-white outline-none border border-zinc-700/50 focus:ring-2 focus:ring-green-500 box-border"
                   />
 
-                  {/* DATE */}
-                  <div className="w-full flex flex-col box-border">
-                    <input
-                      type="text"
-                      placeholder="Select Date"
-                      value={selectedDate}
-                      onFocus={(e) => (e.target.type = "date")}
-                      onBlur={(e) => !selectedDate && (e.target.type = "text")}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="w-full h-[52px] px-4 rounded-xl bg-zinc-800 text-white placeholder-gray-400 outline-none border border-zinc-700/50 focus:ring-2 focus:ring-green-500 scheme-dark box-border transition-all"
-                    />
-                  </div>
+                 {/* DATE */}
+<input
+  type="date"
+  value={selectedDate}
+  onChange={(e) => setSelectedDate(e.target.value)}
+  className="
+    w-full
+    h-[52px]
+    px-4
+    rounded-xl
+    bg-zinc-800
+    text-white
+    outline-none
+    border
+    border-zinc-700/50
+    focus:ring-2
+    focus:ring-green-500
+    box-border
+  "
+/>
 
-                  {/* TIME */}
-                  <div className="w-full flex flex-col box-border">
-                    <input
-                      type="text"
-                      placeholder="Select Time"
-                      value={selectedTime}
-                      onFocus={(e) => (e.target.type = "time")}
-                      onBlur={(e) => !selectedTime && (e.target.type = "text")}
-                      onChange={(e) => setSelectedTime(e.target.value)}
-                      className="w-full h-[52px] px-4 rounded-xl bg-zinc-800 text-white placeholder-gray-400 outline-none border border-zinc-700/50 focus:ring-2 focus:ring-green-500 scheme-dark box-border transition-all"
-                    />
-                  </div>
+{/* TIME */}
+<input
+  type="time"
+  value={selectedTime}
+  onChange={(e) => setSelectedTime(e.target.value)}
+  className="
+    w-full
+    h-[52px]
+    px-4
+    rounded-xl
+    bg-zinc-800
+    text-white
+    outline-none
+    border
+    border-zinc-700/50
+    focus:ring-2
+    focus:ring-green-500
+    box-border
+  "
+/>
 
                 </div>
 
