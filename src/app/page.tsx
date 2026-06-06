@@ -356,20 +356,46 @@ export default function Home() {
                 />
 
                 {/* DATE */}
-                <input
-                  type="date"
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-zinc-800 mb-3"
-                />
+                    <input
+                      type="date"
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      className="
+                        w-full
+                        h-[52px]
+                        px-4
+                        rounded-xl
+                        bg-zinc-800
+                        text-white
+                        mb-3
+                        outline-none
+                        border border-zinc-700
+                        focus:ring-2
+                        focus:ring-green-500
+                        appearance-none
+                      "
+                    />
 
-                {/* TIME */}
-                <input
-                  type="time"
-                  value={selectedTime}
-                  onChange={(e) => setSelectedTime(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-zinc-800 mb-5"
-                />
+                    {/* TIME */}
+                    <input
+                      type="time"
+                      value={selectedTime}
+                      onChange={(e) => setSelectedTime(e.target.value)}
+                      className="
+                        w-full
+                        h-[52px]
+                        px-4
+                        rounded-xl
+                        bg-zinc-800
+                        text-white
+                        mb-5
+                        outline-none
+                        border border-zinc-700
+                        focus:ring-2
+                        focus:ring-green-500
+                        appearance-none
+                      "
+                    />
 
                 {/* SEND */}
                 <button
