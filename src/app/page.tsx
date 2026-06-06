@@ -365,47 +365,55 @@ export default function Home() {
                   className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
                 />
 
-                {/* DATE */}
-                    <input
-                      type="date"
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="
-                        w-full
-                        h-[52px]
-                        px-4
-                        rounded-xl
-                        bg-zinc-800
-                        text-white
-                        mb-3
-                        outline-none
-                        border border-zinc-700
-                        focus:ring-2
-                        focus:ring-green-500
-                        appearance-none
-                      "
-                    />
+{/* DATE */}
+<div className="flex flex-col mb-3">
+  <label className="text-xs text-gray-400 mb-1 ml-1">Select Date</label>
+  <input
+    type="date"
+    value={selectedDate}
+    onChange={(e) => setSelectedDate(e.target.value)}
+    required
+    className="
+      w-full
+      h-[52px]
+      px-4
+      rounded-xl
+      bg-zinc-800
+      text-white
+      outline-none
+      border
+      border-zinc-700
+      focus:ring-2
+      focus:ring-green-500
+      scheme-dark /* علشان تخلي شكل الـ picker متناسق مع الـ Dark mode */
+    "
+  />
+</div>
 
-                    {/* TIME */}
-                    <input
-                      type="time"
-                      value={selectedTime}
-                      onChange={(e) => setSelectedTime(e.target.value)}
-                      className="
-                        w-full
-                        h-[52px]
-                        px-4
-                        rounded-xl
-                        bg-zinc-800
-                        text-white
-                        mb-5
-                        outline-none
-                        border border-zinc-700
-                        focus:ring-2
-                        focus:ring-green-500
-                        appearance-none
-                      "
-                    />
+{/* TIME */}
+<div className="flex flex-col mb-5">
+  <label className="text-xs text-gray-400 mb-1 ml-1">Select Time</label>
+  <input
+    type="time"
+    value={selectedTime}
+    onChange={(e) => setSelectedTime(e.target.value)}
+    required
+    className="
+      w-full
+      h-[52px]
+      px-4
+      rounded-xl
+      bg-zinc-800
+      text-white
+      outline-none
+      border
+      border-zinc-700
+      focus:ring-2
+      focus:ring-green-500
+      scheme-dark /* بتعدل لون أيقونة الساعة الافتراضية للابيض */
+    "
+  />
+</div>
 
                 {/* SEND */}
                 <button
