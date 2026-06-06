@@ -70,7 +70,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2200);
+    }, 600);
 
     return () => clearTimeout(timer);
   }, []);
@@ -96,7 +96,7 @@ export default function Home() {
       {loading && (
         <div className="fixed inset-0 bg-black z-[9999] flex items-center justify-center overflow-hidden">
 
-          <div className="absolute w-[500px] h-[500px] bg-green-500/20 blur-[180px] rounded-full animate-pulse" />
+          <div className="absolute w-[250px] h-[250px] bg-green-500/20 blur-[90px] rounded-full animate-pulse" /> 
 
           <div className="text-center relative z-10">
 
@@ -142,13 +142,12 @@ export default function Home() {
           </video>
 
           {/* OVERLAY */}
-          <div className="absolute inset-0 bg-black/70" />
-
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90" />
           {/* TOP GLOW */}
-          <div className="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-green-500/20 blur-[200px] rounded-full" />
+          <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-green-500/10 blur-[120px] rounded-full" />
 
           {/* BOTTOM GLOW */}
-          <div className="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-emerald-500/20 blur-[180px] rounded-full" />
+          <div className="absolute bottom-[-120px] right-[-60px] w-[300px] h-[300px] bg-emerald-500/10 blur-[100px] rounded-full" />
 
         </div>
 
@@ -175,8 +174,20 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 text-center hover:scale-105 hover:border-green-400 transition duration-500"
-              >
+                className="
+                bg-black/30
+                border
+                border-white/10
+                backdrop-blur-2xl
+                rounded-[32px]
+                p-8
+                text-center
+                hover:scale-105
+                hover:border-green-400
+                hover:shadow-[0_0_40px_rgba(34,197,94,0.25)]
+                transition-all
+                duration-500
+              "              >
 
                 <h3 className="text-3xl font-black text-green-400 mb-2">
                   {item.number}
@@ -228,8 +239,7 @@ export default function Home() {
                 <button
                   key={place.name}
                   onClick={() => setSelectedLocation(place.name)}
-                  className={`group w-full sm:w-auto sm:min-w-[260px] px-8 py-7 rounded-[32px] border backdrop-blur-xl transition-all duration-500 hover:scale-105 ${
-                    selectedLocation === place.name
+                  className={`group relative overflow-hidden w-full sm:w-auto sm:min-w-[280px] px-8 py-8 rounded-[36px] border backdrop-blur-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 ${                    selectedLocation === place.name
                       ? "bg-green-500 text-black border-green-400 shadow-[0_0_40px_rgba(34,197,94,0.5)]"
                       : "bg-white/5 border-white/10 hover:border-green-400"
                   }`}
@@ -572,9 +582,24 @@ export default function Home() {
             href="https://wa.me/201147120315"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-5 right-5 bg-green-500 p-4 rounded-full shadow-[0_0_30px_rgba(34,197,94,0.6)] z-50 hover:scale-110 transition duration-300"
-          >
-            <FaWhatsapp size={28} />
+            className="
+            fixed
+            bottom-5
+            right-5
+            bg-green-500/90
+            backdrop-blur-xl
+            p-3
+            rounded-full
+            border
+            border-green-400/40
+            shadow-[0_0_40px_rgba(34,197,94,0.5)]
+            z-50
+            hover:scale-110
+            hover:rotate-6
+            transition-all
+            duration-300
+          "          >
+            <FaWhatsapp size={22} />
           </a>
 
           {/* FOOTER */}
