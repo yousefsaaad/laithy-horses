@@ -27,25 +27,27 @@ export default function Navbar() {
 
   return (
 
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
+    <nav className="fixed top-3 left-0 w-full z-50 px-3">
 
       <div
         className={`
+          max-w-6xl
+          mx-auto
           flex
           items-center
           justify-between
-          rounded-[28px]
-          px-5
-          sm:px-8
-          py-4
+          rounded-2xl
+          px-4
+          sm:px-6
+          py-2.5
           border
           border-white/10
-          backdrop-blur-2xl
+          backdrop-blur-xl
           transition-all
-          duration-500
+          duration-300
           ${
             scrolled
-              ? "bg-black/70 shadow-[0_0_40px_rgba(0,0,0,0.55)]"
+              ? "bg-black/70 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
               : "bg-black/30"
           }
         `}
@@ -55,36 +57,31 @@ export default function Navbar() {
         <h1
           onClick={() => scrollToSection("home")}
           className="
-            text-2xl
-            sm:text-3xl
+            text-lg
+            sm:text-2xl
             font-black
             cursor-pointer
             whitespace-nowrap
             hover:text-green-400
-            hover:scale-105
-            transition-all
-            duration-300
+            transition
           "
         >
           Ravano 🐎
         </h1>
 
         {/* LINKS */}
-        <div className="flex items-center gap-2 sm:gap-6">
+        <div className="flex items-center gap-1 sm:gap-4">
 
           <button
             onClick={() => scrollToSection("home")}
             className="
-              text-sm
-              sm:text-base
+              text-xs
+              sm:text-sm
               text-gray-300
-              hover:text-green-400
-              transition-all
-              duration-300
-              px-3
+              hover:text-white
+              transition
+              px-2
               py-2
-              rounded-xl
-              hover:bg-white/5
             "
           >
             Home
@@ -93,16 +90,13 @@ export default function Navbar() {
           <button
             onClick={() => scrollToSection("horses")}
             className="
-              text-sm
-              sm:text-base
+              text-xs
+              sm:text-sm
               text-gray-300
-              hover:text-green-400
-              transition-all
-              duration-300
-              px-3
+              hover:text-white
+              transition
+              px-2
               py-2
-              rounded-xl
-              hover:bg-white/5
             "
           >
             Horses
@@ -111,22 +105,20 @@ export default function Navbar() {
           <button
             onClick={() => scrollToSection("locations")}
             className="
-              text-sm
-              sm:text-base
+              text-xs
+              sm:text-sm
               bg-green-500
               text-black
               font-semibold
-              px-4
+              px-3
               py-2
               rounded-xl
-              hover:scale-105
               hover:bg-green-400
-              transition-all
-              duration-300
-              shadow-[0_0_20px_rgba(34,197,94,0.45)]
+              transition
+              shadow-[0_0_15px_rgba(34,197,94,0.35)]
             "
           >
-            Book Now
+            Book
           </button>
 
         </div>
