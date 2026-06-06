@@ -126,6 +126,19 @@ textarea,
 select {
   font: inherit;
 }
+/* DATE & TIME DARK MODE FIX */
+input[type="date"],
+input[type="time"] {
+  color-scheme: dark;
+  color: white;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 1;
+  cursor: pointer;
+}
 
 /* REMOVE BLUE TAP */
 * {
