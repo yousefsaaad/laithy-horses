@@ -70,7 +70,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 600);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -364,10 +364,11 @@ export default function Home() {
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none focus:ring-2 focus:ring-green-500"
                 />
-
 {/* DATE */}
-<div className="flex flex-col mb-3">
-  <label className="text-xs text-gray-400 mb-1 ml-1">Select Date</label>
+<div className="w-full mb-3 flex flex-col">
+  <label className="text-xs text-gray-400 mb-1 ml-1 self-start">
+    Select Date
+  </label>
   <input
     type="date"
     value={selectedDate}
@@ -375,24 +376,27 @@ export default function Home() {
     required
     className="
       w-full
-      h-[52px]
+      h-[50px]
       px-4
       rounded-xl
       bg-zinc-800
       text-white
       outline-none
       border
-      border-zinc-700
+      border-zinc-700/60
       focus:ring-2
       focus:ring-green-500
-      scheme-dark /* علشان تخلي شكل الـ picker متناسق مع الـ Dark mode */
+      scheme-dark
+      box-border /* بتضمن إن الـ padding ميكبرش حجم الـ input لبرة */
     "
   />
 </div>
 
 {/* TIME */}
-<div className="flex flex-col mb-5">
-  <label className="text-xs text-gray-400 mb-1 ml-1">Select Time</label>
+<div className="w-full mb-5 flex flex-col">
+  <label className="text-xs text-gray-400 mb-1 ml-1 self-start">
+    Select Time
+  </label>
   <input
     type="time"
     value={selectedTime}
@@ -400,20 +404,22 @@ export default function Home() {
     required
     className="
       w-full
-      h-[52px]
+      h-[50px]
       px-4
       rounded-xl
       bg-zinc-800
       text-white
       outline-none
       border
-      border-zinc-700
+      border-zinc-700/60
       focus:ring-2
       focus:ring-green-500
-      scheme-dark /* بتعدل لون أيقونة الساعة الافتراضية للابيض */
+      scheme-dark
+      box-border
     "
   />
 </div>
+
 
                 {/* SEND */}
                 <button
